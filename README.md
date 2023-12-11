@@ -1,2 +1,2 @@
 # pre-commit
-Java Pre-commit Project 
+Java Pre-commit Project
