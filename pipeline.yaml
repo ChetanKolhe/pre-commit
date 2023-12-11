@@ -1,0 +1,34 @@
+resources:
+- name: your-git-repo
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/ChetanKolhe/pre-commit.git
+    branch: master  # Specify the local branch name
+    private_key: /tmp/git-resource-private-key
+jobs:
+- name: run-pre-commit
+  plan:
+  - get: your-git-repo
+    trigger: true
+    version: every
+  - task: run-pre-commit
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: python
+          tag: 3.8-slim
+      inputs:
+      - name: your-git-repo
+      run:
+        path: sh
+        args:
+          - -exc
+          - |
+            pwd
+            ls
+            cd pre-commit
+            pwd
+            ls
